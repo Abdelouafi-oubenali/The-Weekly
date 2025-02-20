@@ -2,10 +2,21 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AnnonceController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('category', CategoryController::class);
+
+// routes/web.php
+
+Route::resource('annonces', AnnonceController::class);
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
