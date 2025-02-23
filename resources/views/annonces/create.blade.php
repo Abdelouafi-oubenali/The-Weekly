@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Annonces</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-50">
+@extends('layouts.master')
+
+@section('title', 'Create New Announcement')
+
+@section('content')
     <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Ajouter une nouvelle annonce</h2>
 
             <form action="{{ route('annonces.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
-
                 <div class="space-y-2">
                     <label for="titre" class="block text-lg font-medium text-gray-700">Titre</label>
                     <input type="text" 
-                           name="titre" 
-                           id="titre"
-                           value="{{ old('titre') }}" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
-                           placeholder="Entrez le titre de l'annonce">
+                        name="titre" 
+                        id="titre"
+                        value="{{ old('titre') }}" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                        placeholder="Entrez le titre de l'annonce">
                     @error('titre')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
                     @enderror
@@ -30,10 +25,10 @@
                 <div class="space-y-2">
                     <label for="description" class="block text-lg font-medium text-gray-700">Description</label>
                     <textarea name="description" 
-                              id="description"
-                              rows="4" 
-                              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
-                              placeholder="Décrivez votre annonce">{{ old('description') }}</textarea>
+                            id="description"
+                            rows="4" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                            placeholder="Décrivez votre annonce">{{ old('description') }}</textarea>
                     @error('description')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
                     @enderror
@@ -43,11 +38,11 @@
                     <label for="prix" class="block text-lg font-medium text-gray-700">Prix</label>
                     <div class="relative">
                         <input type="text" 
-                               name="prix" 
-                               id="prix"
-                               value="{{ old('prix') }}" 
-                               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
-                               placeholder="0.00">
+                            name="prix" 
+                            id="prix"
+                            value="{{ old('prix') }}" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                            placeholder="0.00">
                         <span class="absolute right-3 top-2 text-gray-500">€</span>
                     </div>
                     @error('prix')
@@ -104,5 +99,5 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+    
+@endsection

@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une annonce</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-</head>
-<body class="bg-gray-50">
-    <div class="min-h-screen">
-        @yield('constant')
+@extends('layouts.master')
 
+@section('title', 'Announcement update')
+
+@section('content')
         <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                 <!-- En-tête -->
@@ -134,6 +125,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</body>
-</html>
+
+ @endsection

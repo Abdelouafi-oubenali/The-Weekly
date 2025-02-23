@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Annonnce extends Model
+
+class Annonce extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+    protected $table = 'annonnces';
 
     protected $fillable = [
         'titre', 'description', 'prix', 'image', 'user_id', 'categorie_id', 'status'
@@ -26,9 +30,10 @@ class Annonnce extends Model
 
     // la rolasion entre commonter 
 
-    // public function commentaires()
-    // {
-    //     return $this->hasMany(Commentaire::class);
-    // }
+    public function comments()
+{
+    return $this->hasMany(Comment::class);
+}
+
 
 }

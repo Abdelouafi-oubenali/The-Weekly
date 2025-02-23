@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annonnce;
+use App\Models\Annonce;
 use App\Models\Category;
 use App\Http\Requests\StoreAnnonceRequest; 
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +14,10 @@ class AnnonceController extends Controller
 
     public function index()
     {
-        $annonces = Annonnce::paginate(10); 
+        $annonces = Annonce::paginate(10); 
 
         $categories = Category::all();
-        return view('annonces.index', compact('annonces', 'categories'));
+        return view('annonces.list', compact('annonces', 'categories'));
     }
 
     public function create()
@@ -34,8 +34,8 @@ class AnnonceController extends Controller
             $imagePath = $request->file('image')->store('annonces', 'public'); 
         }
 
-        $userId = Auth::id() ?: 1;
-        Annonnce::create([
+        $userId = Auth::id();
+        Annonce::create([
             'titre' => $request->titre,
             'description' => $request->description,
             'prix' => $request->prix, 
@@ -44,13 +44,13 @@ class AnnonceController extends Controller
             'categorie_id' => $request->categorie_id, 
             'status' => 'brouillon', 
         ]);
-        return redirect()->route('annonces.index')->with('success', 'تم إضافة الإعلان بنجاح!');
+        return redirect()->route('annonces.index')->with('success', 'add new annonces');
     }
 
     public function edit($id)
     {
-        $annonce = Annonnce::findOrFail($id); 
-        $categories = Category::all();  
+        $annonce = Annonce::findOrFail($id); 
+        $categories = Category::all();
         
         return view('annonces.edit', compact('annonce', 'categories')); 
     }
@@ -60,7 +60,7 @@ class AnnonceController extends Controller
     public function update(StoreAnnonceRequest $request, $id)
     {
 
-        $annonce = Annonnce::findOrFail($id);
+        $annonce = Annonce::findOrFail($id);
 
         $imagePath = $annonce->image; 
         if ($request->hasFile('image')) {
@@ -86,9 +86,15 @@ class AnnonceController extends Controller
 
     public function destroy($id)
     {
-        $annonce = Annonnce::findOrFail($id);
+        $annonce = Annonce::findOrFail($id);
         $annonce->delete();
         return redirect()->route('annonces.index')->with('success', 'supremed');
+    }
+
+    public function show($id)
+    {
+        $annonce = Annonce::with('comments')->findOrFail($id);
+        return view('annonces.comment', compact('annonce'));
     }
 
     
